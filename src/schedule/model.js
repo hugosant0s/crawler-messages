@@ -33,7 +33,7 @@ class Schedule {
         let sql = 'SELECT * FROM `send_message`.`schedules` ' +
             'WHERE is_active = ? ' +
             'AND start_date <= ? ' +
-            'AND (end_date is null OR end_date > ?);'
+            'AND (end_date is null OR end_date >= ?);'
 
         return await pool.query(sql, [isActive, now, now])
     }

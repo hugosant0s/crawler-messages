@@ -5,6 +5,27 @@ class Schedule {
     constructor() {
     }
 
+    getDefaultSchedule() {
+        return {
+            'id': null,
+            'plataform': null,
+            'typeOfTime': null,
+            'time': null,
+            'subject': null,
+            'message': null,
+            'to': null,
+            'cc': null,
+            'cco': null,
+            'startDate': null,
+            'endDate': null,
+            'is_active': null,
+            'lastExecutedAt': null,
+            'createdAt': null,
+            'updatedAt': null,
+            'deletedAt': null
+        }
+    }
+
     async findAllToProcess() {
         let isActive = true
         let now = moment().format('YYYY-MM-DD HH:mm:ss')

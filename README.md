@@ -109,8 +109,8 @@ Get Insomnia workspace [here](https://raw.githubusercontent.com/hugosant0s/crawl
 ## Roadmap
   - [x] ~~send message to email~~
   - [x] ~~create schedule for send messages automatically~~
+  - [x] ~~improve request validations~~
   - [ ] configure to use mocha/chai/sinon
-  - [ ] improve request validations
   - [ ] improve exception handling
   - [ ] do not send the message as spam
   - [ ] send message to whatsapp

@@ -1,58 +1,66 @@
 const EmailService = require('../services/email-service')
 const EmailScheduleService = require('../services/email-schedule-service')
 
+const RequestValidation = require('../validations/request-validation')
+
 class EmailController {
+    /**
+     * 
+     * @param {string} subject
+     * @param {string} message
+     * @param {object} emails
+     * @param {property | array} emails.to
+     * @param {property | array} emails.cc
+     * @param {property | array} emails.cco
+     */
     static async sendMessage(req, res, next) {
-        let response = EmailService.validateRequest(req.body)
-
-        if (response.error) {
-            res.send(400, { 'message': response.message })
-            return next()
-        }
-
         try {
+            const request = await RequestValidation.validateEmails(req.body)
+
             const info = await EmailService.sendMail(
-                req.body.name, req.body.subject, req.body.message,
-                req.body.emails.to, req.body.emails.cc, req.body.emails.cco
+                request.name, request.subject, request.message,
+                request.emails.to, request.emails.cc, request.emails.cco
             )
 
-            response.message = `Email enviado com sucesso! ID: ${info.messageId}`
+            res.send({ message: `Email enviado com sucesso! ID: ${info.messageId}` })
         } catch (err) {
-            console.log(err)
-
-            response.error = true
-            response.message = err.message
+            const statusCode = (err.name === 'ValidationError') ? 400 : 500
+            res.send(statusCode, { message: err.message })
         }
 
-        res.send(response)
         return next()
     }
 
+    /**
+     *
+     * @param {string} subject
+     * @param {string} message
+     * @param {object} emails
+     * @param {property | array} emails.to
+     * @param {property | array} emails.cc
+     * @param {property | array} emails.cco
+     * @param {string} typeOfTime
+     * @param {number} time
+     * @param {string} startDate
+     * @param {string} endDate
+     * @param {boolean} isActive
+     */
     static async saveMessageSchedule(req, res, next) {
-        let response = EmailService.validateRequest(req.body)
-        response = EmailScheduleService.validateRequest(req.body)
-
-        if (response.error) {
-            res.send(400, { message: response.message })
-            return next()
-        }
-
         try {
+            const request = await RequestValidation.validateSchedule(req.body)
+
             await EmailScheduleService.createForEmail(
-                req.body.typeOfTime, req.body.time, req.body.subject, req.body.message,
-                req.body.emails.to, req.body.emails.cc, req.body.emails.cco,
-                req.body.startDate, req.body.endDate, req.body.isActive
+                request.typeOfTime, request.time, request.subject, request.message,
+                request.emails.to, request.emails.cc, request.emails.cco,
+                request.startDate, request.endDate, request.isActive
             )
 
-            response.message = 'Agendamento salvo com sucesso!'
+            res.send({ message: 'Agendamento salvo com sucesso!' })
         } catch (err) {
-            console.log(err)
-
-            response.error = true
-            response.message = err.message
+            const statusCode = (err.name === 'ValidationError') ? 400 : 500
+            res.send(statusCode, { message: err.message })
         }
 
-        res.send(response)
         return next()
     }
 }

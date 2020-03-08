@@ -72,7 +72,6 @@ Get Insomnia workspace [here](https://raw.githubusercontent.com/hugosant0s/crawl
     #### Response
     ```json
     {
-      "error": false,
       "message": "Email enviado com sucesso! ID: <54e1923d-0cda-0ab3-a94e-bef1f5668ea1@gmail.com>"
     }
     ```
@@ -102,11 +101,10 @@ Get Insomnia workspace [here](https://raw.githubusercontent.com/hugosant0s/crawl
     #### Response
     ```json
     {
-      "error": false,
       "message": "Agendamento salvo com sucesso!"
     }
     ```
-    ![](images/example-schedule.png)
+    ![](https://raw.githubusercontent.com/hugosant0s/crawler-messages/master/public/images/example-schedule.png)
 
 ## Roadmap
   - [x] ~~send message to email~~

@@ -1,10 +1,7 @@
-const pool = require('../database/mysql')
+const pool = require('../databases/mysql')
 
 class User {
-    constructor() {
-    }
-
-    getDefaultUser() {
+    static getDefault() {
         return {
             'id': null,
             'name': null,
@@ -15,7 +12,7 @@ class User {
         }
     }
 
-    async findAll() {
+    static async findAll() {
         let sql = 'SELECT * FROM send_message.users;'
         return await pool.query(sql)
     }

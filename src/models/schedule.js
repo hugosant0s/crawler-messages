@@ -1,11 +1,8 @@
-const pool = require('../database/mysql')
+const pool = require('../databases/mysql')
 const moment = require('moment')
 
 class Schedule {
-    constructor() {
-    }
-
-    getDefaultSchedule() {
+    static getDefault() {
         return {
             'id': null,
             'plataform': null,
@@ -26,11 +23,11 @@ class Schedule {
         }
     }
 
-    async findAllToProcess() {
-        let isActive = true
-        let now = moment().format('YYYY-MM-DD HH:mm:ss')
+    static async findAllToProcess() {
+        const isActive = true
+        const now = moment().format('YYYY-MM-DD HH:mm:ss')
 
-        let sql = 'SELECT * FROM `send_message`.`schedules` ' +
+        const sql = 'SELECT * FROM `send_message`.`schedules` ' +
             'WHERE is_active = ? ' +
             'AND start_date <= ? ' +
             'AND (end_date is null OR end_date >= ?);'
@@ -38,17 +35,17 @@ class Schedule {
         return await pool.query(sql, [isActive, now, now])
     }
 
-    async create(plataform, typeOfTime, time, subject, message, to, cc, cco, startDate, endDate, isActive = false) {
-        let now = moment().format('YYYY-MM-DD HH:mm:ss')
-        let sql = 'INSERT INTO `send_message`.`schedules` (plataform, type_of_time, `time`, `subject`, message, `to`, cc, cco, start_date, end_date, is_active, last_executed_at, created_at) ' +
+    static async create(plataform, typeOfTime, time, subject, message, to, cc, cco, startDate, endDate, isActive = false) {
+        const now = moment().format('YYYY-MM-DD HH:mm:ss')
+        const sql = 'INSERT INTO `send_message`.`schedules` (plataform, type_of_time, `time`, `subject`, message, `to`, cc, cco, start_date, end_date, is_active, last_executed_at, created_at) ' +
             'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);'
 
         return await pool.query(sql, [plataform, typeOfTime, time, subject, message, to, cc, cco, startDate, endDate, isActive, null, now])
     }
 
-    async updateLastExecutedAt(id) {
-        let now = moment().format('YYYY-MM-DD HH:mm:ss')
-        let sql = 'UPDATE `send_message`.`schedules` SET last_executed_at = ? WHERE id = ?;'
+    static async updateLastExecutedAt(id) {
+        const now = moment().format('YYYY-MM-DD HH:mm:ss')
+        const sql = 'UPDATE `send_message`.`schedules` SET last_executed_at = ? WHERE id = ?;'
 
         return await pool.query(sql, [now, id])
     }

@@ -62,6 +62,7 @@ class RequestValidation {
                 .min(moment().toDate(), 'A data e hora de início não pode ser no passado'),
             endDate: yup.date()
                 .typeError('Data e hora final inválida. O formato aceito é: YYYY-MM-DD HH:mm:ss')
+                .nullable()
                 .min(request.startDate, 'A data e hora final deve ser depois da data de início'),
             isActive: yup.boolean()
                 .typeError('Ativo deve ser true ou false')

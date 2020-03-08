@@ -8,7 +8,7 @@ const EmailConfig = require('../config/email-config')
 
 class EmailService {
     static async sendMail(name = '', subject = '', message = '', to = [], cc = [], cco = []) {
-        const html = await readFile(__basedir + '/public/templates/email.html', { encoding: 'utf-8' })
+        const html = await readFile('./public/templates/email.html', { encoding: 'utf-8' })
         const template = handlebars.compile(html)
 
         const htmlToSend = template({

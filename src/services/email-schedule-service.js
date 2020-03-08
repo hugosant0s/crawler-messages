@@ -30,23 +30,23 @@ class EmailScheduleService {
         const toInString = _.join(to, ',')
         const ccInString = _.join(cc, ',')
         const ccoInString = _.join(cco, ',')
-        await Schedule.create(plataform, typeOfTime, time, subject, message, toInString, ccInString, ccoInString, startDate, endDate, isActive)
+        return await Schedule.create(plataform, typeOfTime, time, subject, message, toInString, ccInString, ccoInString, startDate, endDate, isActive)
     }
 
     static async createForWhatsapp(typeOfTime, time, subject, message, to, startDate, endDate, isActive = false) {
         const plataform = 'WHATSAPP'
         const toInString = _.join(to, ',')
-        await Schedule.create(plataform, typeOfTime, time, subject, message, toInString, null, null, startDate, endDate, isActive)
+        return await Schedule.create(plataform, typeOfTime, time, subject, message, toInString, null, null, startDate, endDate, isActive)
     }
 
     static async createForFacebook(typeOfTime, time, subject, message, to, startDate, endDate, isActive = false) {
         const plataform = 'FACEBOOK'
         const toInString = _.join(to, ',')
-        await Schedule.create(plataform, typeOfTime, time, subject, message, toInString, null, null, startDate, endDate, isActive)
+        return await Schedule.create(plataform, typeOfTime, time, subject, message, toInString, null, null, startDate, endDate, isActive)
     }
 
     static async updateLastExecutedAt(id) {
-        await Schedule.updateLastExecutedAt(id)
+        return await Schedule.updateLastExecutedAt(id)
     }
 }
 

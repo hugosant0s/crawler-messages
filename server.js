@@ -1,5 +1,3 @@
-global.__basedir = __dirname
-
 require('dotenv').config({ path: './env/.env' })
 
 const restify = require('restify')

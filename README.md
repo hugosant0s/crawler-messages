@@ -55,6 +55,7 @@ Get Insomnia workspace [here](https://raw.githubusercontent.com/hugosant0s/crawl
 * Send email manually:
     #### Request
     BASE URL: `http://localhost:8000/api/v1`
+
     POST `/email/send-message` 
     ```json
     {
@@ -79,6 +80,7 @@ Get Insomnia workspace [here](https://raw.githubusercontent.com/hugosant0s/crawl
 * Save schedule to send email automatically:
     #### Request
     BASE URL: `http://localhost:8000/api/v1`
+
     POST `/email/schedule` 
     ```json
     {
@@ -104,6 +106,7 @@ Get Insomnia workspace [here](https://raw.githubusercontent.com/hugosant0s/crawl
       "message": "Agendamento salvo com sucesso!"
     }
     ```
+    ![](images/example-schedule.png)
 
 ## Roadmap
   - [x] ~~send message to email~~
